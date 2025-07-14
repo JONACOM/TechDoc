@@ -1,119 +1,84 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Set current year in footer
-    document.getElementById('year').textContent = new Date().getFullYear();
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Mobile menu toggle
-    const menuToggle = document.querySelector('.menu-toggle');
-    const nav = document.querySelector('.nav');
-    
-    menuToggle.addEventListener('click', function() {
-        this.classList.toggle('active');
-        nav.classList.toggle('active');
+  const menuToggle = document.querySelector('.menu-toggle');
+  const nav = document.querySelector('.nav');
+
+  menuToggle.addEventListener('click', () => {
+    menuToggle.classList.toggle('active');
+    nav.classList.toggle('active');
+    document.body.classList.toggle('nav-open');
+  });
+
+  document.querySelectorAll('.nav a').forEach(link => {
+    link.addEventListener('click', () => {
+      menuToggle.classList.remove('active');
+      nav.classList.remove('active');
+      document.body.classList.remove('nav-open');
     });
+  });
 
-    // Close mobile menu when clicking a link
-    const navLinks = document.querySelectorAll('.nav a');
-    navLinks.forEach(link => {
-        link.addEventListener('click', function() {
-            if (nav.classList.contains('active')) {
-                menuToggle.classList.remove('active');
-                nav.classList.remove('active');
-            }
-        });
-    });
+  initParticles();
+  initServiceCards();
+  initTestimonialSlider();
+  initContactButtons();
+  initPWA();
+  initBookingForm();
 
-    // Smooth scrolling for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            const targetId = this.getAttribute('href');
-            if (targetId === '#') return;
-            
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                const headerHeight = document.querySelector('.header').offsetHeight;
-                const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
-                
-                window.scrollTo({
-                    top: targetPosition,
-                    behavior: 'smooth'
-                });
-            }
-        });
-    });
-
-    // Add shadow to header on scroll
-    const header = document.querySelector('.header');
-    window.addEventListener('scroll', function() {
-        if (window.scrollY > 50) {
-            header.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.4)';
-        } else {
-            header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.3)';
-        }
-    });
-
-    // Service card animations
-    const serviceCards = document.querySelectorAll('.service-card');
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver(function(entries) {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-            }
-        });
-    }, observerOptions);
-
-    serviceCards.forEach((card, index) => {
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(20px)';
-        card.style.transition = `opacity 0.5s ease ${index * 0.1}s, transform 0.5s ease ${index * 0.1}s`;
-        observer.observe(card);
-    });
+  const header = document.querySelector('.header');
+  window.addEventListener('scroll', () => {
+    header.style.boxShadow = window.scrollY > 50
+      ? '0 4px 15px rgba(0, 0, 0, 0.4)'
+      : '0 2px 10px rgba(0, 0, 0, 0.3)';
+  });
 });
 
-
-//Particles
-// Particle Network Animation
 function initParticles() {
   const canvas = document.getElementById('particle-canvas');
+  if (!canvas) return;
+
   const ctx = canvas.getContext('2d');
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
 
   const particles = [];
-  const particleCount = Math.floor(window.innerWidth / 10); // Density based on screen size
+  const particleCount = Math.min(Math.floor(window.innerWidth / 10), 100);
 
-  // Particle constructor
-  function Particle() {
-    this.x = Math.random() * canvas.width;
-    this.y = Math.random() * canvas.height;
-    this.size = Math.random() * 1.5 + 0.5;
-    this.speedX = Math.random() * 1 - 0.5;
-    this.speedY = Math.random() * 1 - 0.5;
-    this.color = `hsl(${Math.random() * 60 + 190}, 70%, 60%)`; // Blueish tech color
+  class Particle {
+    constructor() {
+      this.x = Math.random() * canvas.width;
+      this.y = Math.random() * canvas.height;
+      this.size = Math.random() * 1.5 + 0.5;
+      this.speedX = (Math.random() - 0.5);
+      this.speedY = (Math.random() - 0.5);
+      this.color = `hsla(${Math.random() * 60 + 190}, 70%, 60%, 0.8)`;
+    }
+    update() {
+      this.x += this.speedX;
+      this.y += this.speedY;
+      if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+      if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+    }
+    draw() {
+      ctx.fillStyle = this.color;
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fill();
+    }
   }
 
-  // Initialize particles
   for (let i = 0; i < particleCount; i++) {
     particles.push(new Particle());
   }
 
-  // Connection lines between close particles
-  function connect() {
+  function connectParticles() {
     for (let a = 0; a < particles.length; a++) {
-      for (let b = a; b < particles.length; b++) {
-        const distance = Math.sqrt(
-          Math.pow(particles[a].x - particles[b].x, 2) + 
-          Math.pow(particles[a].y - particles[b].y, 2)
-        );
-        if (distance < 100) { // Connection threshold
-          ctx.strokeStyle = `rgba(74, 111, 165, ${1 - distance/100})`;
+      for (let b = a + 1; b < particles.length; b++) {
+        const dx = particles[a].x - particles[b].x;
+        const dy = particles[a].y - particles[b].y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        if (distance < 100) {
+          ctx.strokeStyle = `hsla(210, 70%, 60%, ${1 - distance / 100})`;
           ctx.lineWidth = 0.5;
           ctx.beginPath();
           ctx.moveTo(particles[a].x, particles[a].y);
@@ -124,40 +89,182 @@ function initParticles() {
     }
   }
 
-  // Animation loop
-  function animate() {
+  function animateParticles() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    
-    for (let i = 0; i < particles.length; i++) {
-      const p = particles[i];
-      
-      // Update position
-      p.x += p.speedX;
-      p.y += p.speedY;
-      
-      // Bounce off edges
-      if (p.x < 0 || p.x > canvas.width) p.speedX *= -1;
-      if (p.y < 0 || p.y > canvas.height) p.speedY *= -1;
-      
-      // Draw particle
-      ctx.fillStyle = p.color;
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-      ctx.fill();
+    particles.forEach(p => { p.update(); p.draw(); });
+    connectParticles();
+    if (!document.body.classList.contains('reduce-motion')) {
+      requestAnimationFrame(animateParticles);
     }
-    
-    connect();
-    requestAnimationFrame(animate);
   }
 
-  animate();
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.body.classList.add('reduce-motion');
+  } else {
+    animateParticles();
+  }
 
-  // Handle window resize
-  window.addEventListener('resize', function() {
+  window.addEventListener('resize', () => {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
   });
 }
 
-// Initialize when page loads
-window.addEventListener('load', initParticles);
+function initServiceCards() {
+  document.querySelectorAll('.service-card').forEach((card, index) => {
+    card.style.opacity = '0';
+    card.style.transform = 'translateY(20px)';
+    card.style.transition = `opacity 0.5s ease ${index * 0.1}s, transform 0.5s ease ${index * 0.1}s`;
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    observer.observe(card);
+  });
+}
+
+function initTestimonialSlider() {
+  const slider = document.querySelector('.testimonial-slider');
+  if (!slider) return;
+
+  const container = slider.querySelector('.testimonials-container');
+  const testimonials = slider.querySelectorAll('blockquote');
+  const prevBtn = slider.querySelector('.slider-prev');
+  const nextBtn = slider.querySelector('.slider-next');
+
+  let currentIndex = 0;
+
+  function updateSlider() {
+    container.style.transform = `translateX(-${currentIndex * 100}%)`;
+    prevBtn.disabled = currentIndex === 0;
+    nextBtn.disabled = currentIndex === testimonials.length - 1;
+  }
+
+  prevBtn.addEventListener('click', () => {
+    if (currentIndex > 0) currentIndex--;
+    updateSlider();
+    resetAutoSlide();
+  });
+
+  nextBtn.addEventListener('click', () => {
+    if (currentIndex < testimonials.length - 1) currentIndex++;
+    updateSlider();
+    resetAutoSlide();
+  });
+
+  slider.addEventListener('keydown', e => {
+    if (e.key === 'ArrowLeft') {
+      prevBtn.click();
+      resetAutoSlide();
+    }
+    if (e.key === 'ArrowRight') {
+      nextBtn.click();
+      resetAutoSlide();
+    }
+  });
+
+  updateSlider();
+
+  // Auto-slide every 10 seconds
+  let autoSlideInterval = setInterval(() => {
+    currentIndex++;
+    if (currentIndex >= testimonials.length) {
+      currentIndex = 0;
+    }
+    updateSlider();
+  }, 10000);
+
+  // Reset auto-slide timer when user interacts
+  function resetAutoSlide() {
+    clearInterval(autoSlideInterval);
+    autoSlideInterval = setInterval(() => {
+      currentIndex++;
+      if (currentIndex >= testimonials.length) {
+        currentIndex = 0;
+      }
+      updateSlider();
+    }, 10000);
+  }
+}
+
+
+function initContactButtons() {
+  document.querySelectorAll('.contact-card').forEach(card => {
+    card.addEventListener('click', e => {
+      if (card.href === '#') e.preventDefault();
+
+      const ripple = document.createElement('span');
+      ripple.className = 'ripple-effect';
+      const rect = card.getBoundingClientRect();
+      const size = Math.max(rect.width, rect.height);
+
+      ripple.style.width = ripple.style.height = `${size}px`;
+      ripple.style.left = `${e.clientX - rect.left - size / 2}px`;
+      ripple.style.top = `${e.clientY - rect.top - size / 2}px`;
+
+      card.appendChild(ripple);
+      setTimeout(() => ripple.remove(), 600);
+    });
+  });
+}
+
+function initPWA() {
+  let deferredPrompt;
+  const installBtn = document.getElementById('install-btn');
+
+  if (!installBtn) return;
+
+  window.addEventListener('beforeinstallprompt', e => {
+    e.preventDefault();
+    deferredPrompt = e;
+    installBtn.parentElement.style.display = 'block';
+
+    installBtn.addEventListener('click', async () => {
+      installBtn.textContent = 'Installing...';
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      installBtn.textContent = outcome === 'accepted' ? 'Installed!' : 'Install';
+      deferredPrompt = null;
+    }, { once: true });
+  });
+
+  window.addEventListener('appinstalled', () => {
+    installBtn.parentElement.style.display = 'none';
+  });
+}
+
+function initBookingForm() {
+  const form = document.getElementById('service-form');
+  const successMsg = document.getElementById('form-success');
+
+  if (!form) return;
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(form);
+    try {
+      const res = await fetch('https://formsubmit.co/ajax/caratscom@gmail.com', {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: formData
+      });
+
+      if (res.ok) {
+        form.reset();
+        form.style.display = 'none';
+        successMsg.style.display = 'block';
+      } else {
+        alert('Something went wrong. Please try again.');
+      }
+    } catch (err) {
+      alert('There was an error submitting the form.');
+    }
+  });
+}
