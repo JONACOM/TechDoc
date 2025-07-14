@@ -1,0 +1,48 @@
+{
+  "name": "TechDoc - Professional Technical Services",
+  "short_name": "TechDoc",
+  "start_url": "./",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#4a6fa5",
+  "description": "Expert IT support, web development, tech consultancy, and mobile troubleshooting for individuals and businesses.",
+  "orientation": "portrait-primary",
+  "categories": ["technology", "productivity", "utilities", "business"],
+  "icons": [
+    {
+      "src": "assets/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/icons/icon-512-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "assets/screenshots/mobile.webp",
+      "sizes": "1080x1920",
+      "type": "image/webp",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "assets/screenshots/desktop.webp",
+      "sizes": "1920x1080",
+      "type": "image/webp",
+      "form_factor": "wide"
+    }
+  ],
+  "lang": "en",
+  "dir": "ltr"
+}
