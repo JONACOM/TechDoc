@@ -250,7 +250,7 @@ function initBookingForm() {
 
     const formData = new FormData(form);
     try {
-      const res = await fetch('https://formsubmit.co/ajax/caratscom@gmail.com', {
+      const res = await fetch('https://formsubmit.co/ajax/fd74045882b9c9ae54f5dd0c92ab2d65', {
         method: 'POST',
         headers: { 'Accept': 'application/json' },
         body: formData
