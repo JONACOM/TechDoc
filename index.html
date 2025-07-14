@@ -1,110 +1,302 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Professional technical services including troubleshooting, software setup, web development, and mobile support.">
-    <meta name="keywords" content="technical support, web development, IT consultancy, computer repair, webmaster services">
-    <title>TheTechDoc | Professional Technical Services</title>
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔧</text></svg>">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Professional technical services including troubleshooting, software setup, web development, and mobile support." />
+  <meta name="keywords" content="technical support, web development, IT consultancy, computer repair, webmaster services" />
+  <title>TechDoc | Professional Technical Services</title>
+  
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔧</text></svg>" />
+  <meta name="theme-color" content="#0a0a0a" />
 </head>
-    <canvas id="particle-canvas"></canvas>
+
 <body>
-    <header class="header">
-        <div class="container">
-            <h1 class="logo">TheTechDoctor</h1>
-            <nav class="nav">
-                <ul>
-                    <li><a href="#services">Services</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </nav>
-            <button class="menu-toggle" aria-label="Toggle menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
+  <!-- Particle Canvas -->
+  <canvas id="particle-canvas"></canvas>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <h1 class="logo">TechDoc</h1>
+      <div class="status-indicator">
+        <span class="status-dot"></span>
+        <span class="status-text">Available now</span>
+      </div>
+      <nav class="nav">
+        <ul>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#testimonials">Reviews</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <button class="menu-toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main -->
+  <main>
+    <!-- Hero -->
+    <section class="hero" id="hero">
+      <div class="container">
+        <div class="hero-content">
+          <h2>Expert Technical Services When You Need Them</h2>
+          <p>Professional solutions for your home and business technology needs.</p>
+          <a href="#booking" class="btn">Book Now</a>
+          <button id="install-btn" class="btn btn-install" style="display: none;">📲 Install App</button>
         </div>
-    </header>
+      </div>
+    </section>
 
-    <main>
-        <section class="hero">
-            <div class="container">
-                <div class="hero-content">
-                    <h2>Expert Technical Services When You Need Them</h2>
-                    <p>Professional solutions for your home and business technology needs.</p>
-                    <a href="#contact" class="btn">Get Help Now</a>
-                </div>
-            </div>
-        </section>
+    <!-- Services -->
+    <section id="services" class="services">
+      <div class="container">
+        <h2>Our Services</h2>
+        <div class="services-grid">
+          <!-- Service Card 1 -->
+          <div class="service-card">
+              <div class="card-inner">
+                  <div class="card-front">
+                      <div class="service-icon">🔧</div>
+                      <h3>Technical Troubleshooting</h3>
+                  </div>
+                  <div class="card-back">
+                      <ul>
+                          <li>Hardware diagnostics</li>
+                          <li>Software conflicts</li>
+                          <li>Performance tuning</li>
+                          <li>Virus removal</li>
+                      </ul>
+                  </div>
+              </div>
+          </div>
+                    
+          <!-- Service Card 2 -->
+          <div class="service-card">
+              <div class="card-inner">
+                  <div class="card-front">
+                      <div class="service-icon">💻</div>
+                      <h3>Windows/Software Setup</h3>
+                  </div>
+                  <div class="card-back">
+                      <ul>
+                          <li>OS installation</li>
+                          <li>Driver updates</li>
+                          <li>Application configuration</li>
+                          <li>System migration</li>
+                      </ul>
+                  </div>
+              </div>
+          </div>
 
-        <section id="services" class="services">
-            <div class="container">
-                <h2>Our Services</h2>
-                <div class="services-grid">
-                    <div class="service-card">
-                        <div class="service-icon">🔧</div>
-                        <h3>Technical Troubleshooting</h3>
-                        <p>Diagnose and resolve hardware and software issues quickly and effectively.</p>
-                    </div>
-                    <div class="service-card">
-                        <div class="service-icon">💻</div>
-                        <h3>Windows/Software Setup</h3>
-                        <p>Professional installation and configuration of operating systems and applications.</p>
-                    </div>
-                    <div class="service-card">
-                        <div class="service-icon">📊</div>
-                        <h3>IT Consultancy</h3>
-                        <p>Expert advice to optimize your technology infrastructure and workflows.</p>
-                    </div>
-                    <div class="service-card">
-                        <div class="service-icon">🌐</div>
-                        <h3>Web Development</h3>
-                        <p>Custom websites including personal sites, e-commerce, and blogs.</p>
-                    </div>
-                    <div class="service-card">
-                        <div class="service-icon">🛠️</div>
-                        <h3>Webmaster Services</h3>
-                        <p>Ongoing maintenance, updates, and security for your website.</p>
-                    </div>
-                    <div class="service-card">
-                        <div class="service-icon">🏠</div>
-                        <h3>Home/Mobile Support</h3>
-                        <p>On-site assistance for your home or mobile devices when you need it.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+          <!-- Service Card 3 -->
+          <div class="service-card">
+              <div class="card-inner">
+                  <div class="card-front">
+                      <div class="service-icon">📊</div>
+                      <h3>IT Consultancy</h3>
+                  </div>
+                  <div class="card-back">
+                      <ul>
+                          <li>Technology planning</li>
+                          <li>Workflow optimization</li>
+                          <li>Cost analysis</li>
+                          <li>Security audits</li>
+                      </ul>
+                  </div>
+              </div>
+          </div>
 
-        <section id="contact" class="contact">
-            <div class="container">
-                <h2>Get In Touch</h2>
-                <p>Reach out for a consultation or to schedule service.</p>
-                <div class="contact-methods">
-                    <a href="tel:+256778792633" class="contact-card">
-                        <img src="assets/icons/phone.svg" alt="Phone icon" width="24" height="24">
-                        <span>Call</span>
-                    </a>
-                    <a href="https://wa.me/+256726473798" class="contact-card">
-                        <img src="assets/icons/whatsapp.svg" alt="WhatsApp icon" width="24" height="24">
-                        <span>WhatsApp</span>
-                    </a>
-                    <a href="mailto:caratscom@gmail.com" class="contact-card">
-                        <img src="assets/icons/email.svg" alt="Email icon" width="24" height="24">
-                        <span>Email</span>
-                    </a>
-                </div>
-            </div>
-        </section>
-    </main>
+          <!-- Service Card 4 -->
+          <div class="service-card">
+              <div class="card-inner">
+                  <div class="card-front">
+                      <div class="service-icon">🌐</div>
+                      <h3>Web Development</h3>
+                  </div>
+                  <div class="card-back">
+                      <ul>
+                          <li>E-commerce sites</li>
+                          <li>Business websites</li>
+                          <li>Blog platforms</li>
+                          <li>SEO optimization</li>
+                      </ul>
+                  </div>
+              </div>
+          </div>
 
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; <span id="year"></span> TheTechDoc. All rights reserved.</p>
+          <!-- Service Card 5 -->
+          <div class="service-card">
+              <div class="card-inner">
+                  <div class="card-front">
+                      <div class="service-icon">🛠️</div>
+                      <h3>Webmaster Services</h3>
+                  </div>
+                  <div class="card-back">
+                      <ul>
+                          <li>Content updates</li>
+                          <li>Security patches</li>
+                          <li>Backup management</li>
+                          <li>Performance monitoring</li>
+                      </ul>
+                  </div>
+              </div>
+          </div>
+
+          <!-- Service Card 6 -->
+          <div class="service-card">
+              <div class="card-inner">
+                  <div class="card-front">
+                      <div class="service-icon">🏠</div>
+                      <h3>Home/Mobile Support</h3>
+                  </div>
+                  <div class="card-back">
+                      <ul>
+                          <li>On-site visits</li>
+                          <li>Device setup</li>
+                          <li>Network configuration</li>
+                          <li>Smart home integration</li>
+                      </ul>
+                  </div>
+              </div>
+          </div>
         </div>
-    </footer>
+      </div>
+    </section>
 
-    <script src="assets/js/script.js"></script>
+    <!-- Testimonials -->
+    <section id="testimonials" class="testimonials">
+      <div class="container">
+        <h2>What Our Clients Say</h2>
+        <div class="testimonial-slider" tabindex="0">
+          <div class="testimonials-container">
+            <blockquote>
+              <div class="rating">★★★★★</div>
+              <p>“I thought my laptop was dead, but TechDoc brought it back to life in one visit. Fast, friendly, and explained everything in plain language.”</p>
+              <cite>- Patson N., Researcher</cite>
+            </blockquote>
+            <blockquote>
+              <div class="rating">★★★★★</div>
+              <p>“They reinstalled Windows, recovered my files, and even optimized my startup. It now runs faster than it did when new!”</p>
+              <cite>- John Paul O., Procurement Expert</cite>
+            </blockquote>
+            <blockquote>
+              <div class="rating">★★★★★</div>
+              <p>“TechDoc helped streamline our small office setup and reduced our monthly IT costs by 30%. Highly recommended for growing teams.”</p>
+              <cite>- Ben O., Operations Manager</cite>
+            </blockquote>
+            <blockquote>
+              <div class="rating">★★★★★</div>
+              <p>“They built our website in just a few days and made it mobile-friendly and easy to manage. We’ve seen a big boost in traffic.”</p>
+              <cite>- Sandra N. Travel Consultant</cite>
+            </blockquote>
+            <blockquote>
+              <div class="rating">★★★★★</div>
+              <p>“He set up my smart home devices and explained how to use everything. Very professional and patient.”</p>
+              <cite>- Shivan O., Freelancer</cite>
+            </blockquote>
+            <blockquote>
+              <div class="rating">★★★★★</div>
+              <p>“TechDoc is my go-to for anything tech. Always prompt, professional, and affordable.”</p>
+              <cite>- Viola A., Accountant</cite>
+            </blockquote>
+          </div>
+          <button class="slider-prev" aria-label="Previous testimonial">❮</button>
+          <button class="slider-next" aria-label="Next testimonial">❯</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="contact">
+      <div class="container">
+        <h2>Get In Touch</h2>
+        <p>Reach out for a consultation or to schedule service.</p>
+        <div class="contact-methods">
+          <a href="tel:+256778792633" class="contact-card">
+            <img src="assets/icons/phone.svg" alt="Phone" width="24" height="24" loading="lazy" />
+            <span>Call (MTN)</span>
+          </a>
+                    <a href="tel:+256750991384" class="contact-card">
+            <img src="assets/icons/phone.svg" alt="Phone" width="24" height="24" loading="lazy" />
+            <span>Call (Airtel)</span>
+          </a>
+          <a href="https://wa.me/+256726473798" class="contact-card">
+            <img src="assets/icons/whatsapp.svg" alt="WhatsApp" width="24" height="24" loading="lazy" />
+            <span>WhatsApp</span>
+          </a>
+          <a href="mailto:caratscom@gmail.com" class="contact-card">
+            <img src="assets/icons/email.svg" alt="Email" width="24" height="24" loading="lazy" />
+            <span>Email</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Booking Form -->
+    <section id="booking" class="booking">
+      <div class="container">
+        <h2>Book a Service</h2>
+          <form id="service-form" class="service-form">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_subject" value="New Service Request from TechDoc">
+            <input type="hidden" name="_template" value="table">
+
+            <!-- Your existing form fields here -->
+            <div class="form-group">
+              <input type="text" name="name" required placeholder=" ">
+              <label>Your Name</label>
+            </div>
+            <div class="form-group">
+              <input type="email" name="email" required placeholder=" ">
+              <label>Email</label>
+            </div>
+            <div class="form-group">
+              <select name="service" required>
+                <option value=""></option>
+                <option value="troubleshooting">Technical Troubleshooting</option>
+                <option value="windows">Windows/Software Setup</option>
+                <option value="consultancy">IT Consultancy</option>
+                <option value="web-dev">Web Development</option>
+                <option value="webmaster">Webmaster Services</option>
+                <option value="mobile">Home/Mobile Support</option>
+              </select>
+              <label>Service</label>
+            </div>
+            <div class="form-group">
+              <textarea name="details" placeholder=" "></textarea>
+              <label>Project Details</label>
+            </div>
+
+            <button type="submit" class="btn">Schedule Now</button>
+          </form>
+
+  <!-- Hidden success message container -->
+          <div id="form-success" class="form-confirmation" style="display: none;">
+            <svg viewBox="0 0 24 24" width="48" height="48">
+              <path fill="#4a6fa5" d="M12 2C6.5 2 2 6.5 2 12S6.5 22 12 22 22 17.5 22 12 17.5 2 12 2M10 17L5 12l1.4-1.4L10 14.2 17.6 6.6 19 8l-9 9z"/>
+            </svg>
+            <h3>Form submitted successfully!</h3>
+            <p>We'll get back to you soon.</p>
+          </div>
+
+
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; <span id="year"></span> TechDoc. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="assets/js/script.js"></script>
 </body>
 </html>
