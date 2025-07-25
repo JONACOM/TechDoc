@@ -19,7 +19,7 @@ html {
 }
 
 /* Light mode override */
-@media (prefers-color-scheme: light) {
+/* @media (prefers-color-scheme: light) {
   :root {
     --dark: #f8f9fa;
     --light: #121212;
@@ -27,7 +27,7 @@ html {
     --gray: #e9ecef;
     --light-gray: #dee2e6;
   }
-}
+} */
 
 /*------------------------------*/
 /*         BASE STYLES         */
